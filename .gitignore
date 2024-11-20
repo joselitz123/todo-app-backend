@@ -1,0 +1,5 @@
+node_modules
+certificate
+dist
+.env
+.package.json.swp
