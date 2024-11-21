@@ -9,10 +9,12 @@ app.use(cors({
     origin: vars.CLIENT_URL 
 }));
 // passport.use
+// passport.authenticate('jwt', {session: false})
+app.get("/", passport.authenticate('jwt', {session: false}), async(req: Request, res: Response) => {
 
-app.get("/", passport.authenticate('jwt', {session: false}),(req: Request, res: Response) => {
 
-    console.log(req.get('Authorization'));
+    // console.log(req.get('Authorization'));
+    
     res.send("success");
 });
 
