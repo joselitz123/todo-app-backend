@@ -14,6 +14,7 @@ app.get("/", passport.authenticate('jwt', {session: false}), async(req: Request,
 
 
     // console.log(req.get('Authorization'));
+    console.log(req.user);
     
     res.send("success");
 });

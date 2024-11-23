@@ -13,13 +13,14 @@ passport.use(new Strategy({
     ignoreExpiration: false
 }, function (jwtPayload, done) {
     return new Promise(async(resolve) => {
+        console.log("A user has been authenticated");
         const userTable = new UserTable();
         const result = await userTable.findUser(jwtPayload.email);
-        if(result.length == 0){
-            await userTable.insertUser({username: jwtPayload.nickname, email: jwtPayload.email, name: jwtPayload.name});
+        if(!result){
+            const account = await userTable.insertUser({username: jwtPayload.nickname, email: jwtPayload.email, name: jwtPayload.name});
+            resolve(done(null, account));
         } else {
-            console.log("account existing");
+            resolve(done(null, result));
         }
-        resolve(done(null, jwtPayload));
     });
 }));
