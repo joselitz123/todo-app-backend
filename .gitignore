@@ -3,3 +3,4 @@ certificate
 dist
 .env
 .package.json.swp
+todo.db
