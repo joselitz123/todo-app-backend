@@ -55,7 +55,14 @@ export const contentTable = sqliteTable('content', {
 export const todoRelationshipTable = sqliteTable('todo_relationship', {
     todo_relationship_id: integer().primaryKey({autoIncrement: true}),
     area_id: integer().references(() => areaTable.area_id),
-    todo_id: integer().references(() => todoTable.todo_id),
-    related_tod_id: integer().references(() => todoTable.todo_id),
-    relationship_type: text({enum: ["parent_child"]})
+    todo_parent: integer(),
+    todo_child: integer(),
+    depth: integer(),
+});
+
+
+export const repeated_todo = sqliteTable('repated_todo', {
+    repeated_todo_id: integer().primaryKey({autoIncrement: true}),
+    cron_job: text(),
+    denormalized_result: text()
 })
