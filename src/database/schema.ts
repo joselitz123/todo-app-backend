@@ -12,12 +12,14 @@ export const areaTable = sqliteTable('area', {
     area_id: integer().primaryKey({autoIncrement: true}),
     name: text(),
     icon: text(),
+    created_at: text().default(sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const areaUserTable = sqliteTable('area_user', {
     area_user_id: integer().primaryKey({autoIncrement: true}),
     user_id: integer().references(() => userTable.user_id),
-    area_id: integer().references(() => areaTable.area_id)
+    area_id: integer().references(() => areaTable.area_id),
+    role: text({enum: ['admin', 'edit', 'read']})
 });
 
 export const labelTable = sqliteTable('label', {
