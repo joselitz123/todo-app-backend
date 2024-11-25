@@ -43,7 +43,7 @@ export const todoTable = sqliteTable('todo', {
     label: text(),
     due_date: integer({mode: 'timestamp'}),
     priority: text({enum: ["critical", "high", "medium", "low"]}),
-    status: text({enum: ["backlog","todo","on hold", "in progress", "compelete"]}),
+    status: integer().references(() => statusTable.status_id),
     created_at: text().default(sql`(CURRENT_TIMESTAMP)`),
     updated_at: integer({mode: 'timestamp'}).default(sql`(CURRENT_TIMESTAMP)`)
 });
@@ -63,8 +63,16 @@ export const todoRelationshipTable = sqliteTable('todo_relationship', {
 });
 
 
-export const repeated_todo = sqliteTable('repated_todo', {
+export const repeatedTodoTable = sqliteTable('repated_todo', {
     repeated_todo_id: integer().primaryKey({autoIncrement: true}),
     cron_job: text(),
     denormalized_result: text()
-})
+});
+
+export const statusTable = sqliteTable('status', {
+    status_id: integer().primaryKey({autoIncrement: true}),
+    name: text(),
+    status_color: text(),
+    actual_status: text({enum: ["not_started", "started", "completed"]}),
+    order: integer()
+});
