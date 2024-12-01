@@ -28,6 +28,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "remove": "^0.1.5",
+    "todo-app-backend": "file:",
     "token-introspection": "^3.3.0",
     "tsconfig-paths": "^4.2.0"
   },
