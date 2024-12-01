@@ -1,6 +1,5 @@
 import {RequestHandler} from 'express';
 import { StatusTable } from '@database/table/status-table';
-import { User } from '@type/general-types';
 
 export const getStatus: RequestHandler = async(req, res) => {
 

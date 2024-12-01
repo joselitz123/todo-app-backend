@@ -20,6 +20,7 @@ app.get("/api/v1/area", passport.authenticate('jwt', {session: false}), getArea)
 
 app.get("/api/v1/status", passport.authenticate('jwt', {session: false}), getStatus);
 
+
 app.listen(vars.PORT, () => {
   console.log(`[server]: Server is running at http://localhost:${vars.PORT}`);
 });

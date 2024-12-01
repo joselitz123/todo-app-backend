@@ -20,6 +20,3 @@ export class Database{
         return this.connection;
     }
 }
-
-
-Database.getInstance();

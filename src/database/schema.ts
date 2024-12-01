@@ -25,7 +25,8 @@ export const areaUserTable = sqliteTable('area_user', {
 export const labelTable = sqliteTable('label', {
     label_id: integer().primaryKey({autoIncrement: true}),
     area_id: integer().references(() => areaTable.area_id),
-    name: text()
+    name: text(),
+    color: text(),
 });
 
 
