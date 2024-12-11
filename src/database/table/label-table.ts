@@ -23,6 +23,7 @@ export class LabelTable{
         return result;
     }
 
+    @catchError
     async insertAndGetAreaById(areaId: number, name: string, color: string){
         await this.insert(areaId, name, color);
         const result = await this.getLabelByArea(areaId);
