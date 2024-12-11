@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import passport from 'passport';
 import {vars} from "./environment-vars";
-import { addArea, getArea, getStatus, getLabel, postLabel } from "@controller/controller";
+import { addArea, getArea, getStatus, getLabel, postLabel, getAreaUser} from "@controller/controller";
 import { initSetup } from "./initial-setup";
 
 const app: Express = express();
@@ -18,11 +18,13 @@ app.use(bodyParser.json());
 
 app.post("/api/v1/area", passport.authenticate('jwt', {session: false}), addArea);
 app.get("/api/v1/area", passport.authenticate('jwt', {session: false}), getArea);
+app.get("/api/v1/area/user", passport.authenticate('jwt', {session: false}), getAreaUser);
 
 app.get("/api/v1/status", passport.authenticate('jwt', {session: false}), getStatus);
 
 app.get("/api/v1/label", passport.authenticate('jwt', {session: false}), getLabel);
 app.post("/api/v1/label", passport.authenticate('jwt', {session: false}), postLabel);
+
 
 app.listen(vars.PORT, () => {
   console.log(`[server]: Server is running at http://localhost:${vars.PORT}`);

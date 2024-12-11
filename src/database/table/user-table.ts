@@ -1,15 +1,17 @@
 import { Database } from "../database";
-import { eq } from "drizzle-orm";
-import { userTable } from "../schema";
+import { eq, getTableColumns } from "drizzle-orm";
+import { userTable, areaUserTable } from "../schema";
 import { catchError } from "@decorator/catch-error";
 
 export class UserTable {
     private dbConn;
-    private userTable ;
+    private userTable;
+    private areaUserTable;
 
     constructor(){
         this.dbConn = Database.getInstance().getConnection();
         this.userTable = userTable;
+        this.areaUserTable = areaUserTable;
     }
     
     @catchError
@@ -21,8 +23,16 @@ export class UserTable {
 
     @catchError
     async findUser(email: string){
-        const result = await this.dbConn.select().from(userTable).where(eq(userTable.email, email)).limit(1);
+        const result = await this.dbConn.select().from(this.userTable).where(eq(userTable.email, email)).limit(1);
         return result.length > 0 ? result[0] : null;
+    }
+
+    async getUsersByAreaId(areaId: number){
+        const result = await this.dbConn.select(getTableColumns(this.userTable))
+        .from(this.userTable)
+        .rightJoin(this.areaUserTable, eq(this.userTable.user_id, this.areaUserTable.user_id))
+        .where(eq(this.areaUserTable.area_id, areaId));
+        return result;
     }
 
 }
