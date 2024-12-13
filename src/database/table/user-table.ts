@@ -27,6 +27,7 @@ export class UserTable {
         return result.length > 0 ? result[0] : null;
     }
 
+    @catchError
     async getUsersByAreaId(areaId: number){
         const result = await this.dbConn.select(getTableColumns(this.userTable))
         .from(this.userTable)
